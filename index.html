@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mega Boost Official</title>
+  <link rel="icon" href="https://i.supaimg.com/3f3a1c48-2002-4393-b2ec-618dcfe26b66.png" type="image/jpeg">
+
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background:#f3f3f3;
+      color:#111;
+    }
+
+    .container{
+      max-width: 480px;
+      margin:auto;
+      background:white;
+      min-height:100vh;
+      padding-bottom:30px;
+    }
+
+    /* Header */
+    .app-header{
+      padding:18px;
+      display:flex;
+      gap:15px;
+      align-items:center;
+    }
+
+    .app-icon{
+      width:70px;
+      height:70px;
+      border-radius:16px;
+      overflow:hidden;
+      background:transparent;
+      flex-shrink:0;
+      border:0px solid #ddd;
+    }
+
+    .app-icon img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding:3px;
+      background:transparent;
+    }
+
+    .app-title h1{
+      font-size:22px;
+      font-weight:bold;
+    }
+
+    .app-title p{
+      font-size:14px;
+      color:#2a6df4;
+      font-weight:bold;
+      margin-top:4px;
+    }
+
+    /* Stats */
+    .stats{
+      display:flex;
+      justify-content:space-around;
+      padding:8px 10px;
+      text-align:center;
+    }
+
+    .stat-box{
+      flex:1;
+      padding:10px 5px;
+      border-right:1px solid #ddd;
+    }
+
+    .stat-box:last-child{
+      border-right:none;
+    }
+
+    .stat-box h2{
+      font-size:17px;
+      font-weight:bold;
+    }
+
+    .stat-box p{
+      font-size:12px;
+      color:#666;
+      margin-top:4px;
+    }
+
+    /* Buttons (Smaller) */
+    .buttons{
+      padding:12px 15px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .btn{
+      width:100%;
+      border:none;
+      padding:12px;
+      border-radius:35px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.2s;
+    }
+
+    .download-btn{
+      background:#6b35d4;
+      color:white;
+    }
+
+    .download-btn:hover{
+      background:#5727b7;
+    }
+
+    .telegram-btn{
+      background:#0099ff;
+      color:white;
+    }
+
+    .telegram-btn:hover{
+      background:#007ad1;
+    }
+
+    /* Titles */
+    .section-title{
+      font-size:20px;
+      font-weight:bold;
+      padding:15px;
+      padding-bottom:8px;
+    }
+
+    /* Screenshots (No Limit Size Fix) */
+    .screenshots{
+      display:flex;
+      gap:12px;
+      overflow-x:auto;
+      padding:8px 15px;
+      scroll-behavior:smooth;
+    }
+
+    .screenshots::-webkit-scrollbar{
+      height:6px;
+    }
+
+    .screenshots::-webkit-scrollbar-thumb{
+      background:#ccc;
+      border-radius:20px;
+    }
+
+    /* Smaller screenshot box */
+    .shot{
+      width:170px;
+      height:320px;
+      border-radius:18px;
+      overflow:hidden;
+      flex-shrink:0;
+      background:#fff;
+      box-shadow: 0px 3px 12px rgba(0,0,0,0.18);
+      cursor:pointer;
+      border:1px solid #eee;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* FULL IMAGE SHOW NO LIMIT */
+    .shot img{
+      max-width:100%;
+      max-height:100%;
+      width:auto;
+      height:auto;
+      object-fit:contain;
+      background:white;
+    }
+
+    /* About */
+    .about-box{
+      padding:15px;
+    }
+
+    .about-text{
+      color:#444;
+      font-size:14px;
+      line-height:1.6;
+      white-space:pre-line;
+    }
+
+    /* Tags */
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      padding:0 15px 15px;
+    }
+
+    .tag{
+      padding:7px 12px;
+      border:1px solid #ccc;
+      border-radius:12px;
+      font-size:12px;
+      background:#fafafa;
+      color:#333;
+    }
+
+    /* Data Safety */
+    .data-safety{
+      padding:15px;
+      border-top:1px solid #ddd;
+      margin-top:10px;
+    }
+
+    .data-safety h3{
+      font-size:18px;
+      font-weight:bold;
+      margin-bottom:10px;
+    }
+
+    .data-safety p{
+      color:#555;
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    /* Footer */
+    .footer{
+      text-align:center;
+      padding:15px;
+      font-size:12px;
+      color:#777;
+    }
+
+    /* Popup Zoom */
+    .popup{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.85);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:9999;
+      padding:10px;
+      backdrop-filter: blur(8px);
+    }
+
+    .popup-content{
+      width:100%;
+      max-width:500px;
+      height:95%;
+      background:white;
+      border-radius:18px;
+      overflow:hidden;
+      position:relative;
+      animation: zoomIn 0.25s ease;
+      box-shadow: 0px 10px 40px rgba(0,0,0,0.5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .popup-content img{
+      max-width:100%;
+      max-height:100%;
+      width:auto;
+      height:auto;
+      object-fit:contain;
+      background:white;
+    }
+
+    .close-btn{
+      position:absolute;
+      top:12px;
+      right:12px;
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      border:none;
+      background:rgba(0,0,0,0.75);
+      color:white;
+      font-size:18px;
+      cursor:pointer;
+      z-index:10000;
+    }
+
+    @keyframes zoomIn{
+      from{ transform:scale(0.7); opacity:0; }
+      to{ transform:scale(1); opacity:1; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- App Header -->
+    <div class="app-header">
+      <div class="app-icon">
+        <img src="https://i.supaimg.com/3206aa47-10ac-416c-88b9-26ef39412e33.png" alt="App Icon">
+      </div>
+
+      <div class="app-title">
+        <h1>HopWeb Pro</h1>
+        <p>mega boost official</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-box">
+        <h2>2.7.5</h2>
+        <p>Version</p>
+      </div>
+
+      <div class="stat-box">
+        <h2>85MB</h2>
+        <p>File Size</p>
+      </div>
+
+      <div class="stat-box">
+        <h2>5500+</h2>
+        <p>Downloads</p>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button class="btn download-btn" onclick="window.open('https://t.me/kapil_old_name/238','_blank')">
+        Download
+      </button>
+
+      <button class="btn telegram-btn" onclick="window.open('https://t.me/+f8mgewlTOpM2ZTVl','_blank')">
+        Join Telegram
+      </button>
+    </div>
+
+    <!-- Screenshots -->
+    <div class="section-title">Screenshots</div>
+
+    <div class="screenshots">
+      <div class="shot" onclick="openPopup('https://i.supaimg.com/0e538d0a-da5e-42d6-a550-5f886dda6df7.jpg')">
+        <img src="https://i.supaimg.com/0e538d0a-da5e-42d6-a550-5f886dda6df7.jpg" alt="Screenshot 1">
+      </div>
+
+      <div class="shot" onclick="openPopup('https://i.supaimg.com/75e22971-9ace-42b2-87a9-3c8c417b34c9.jpg')">
+        <img src="https://i.supaimg.com/75e22971-9ace-42b2-87a9-3c8c417b34c9.jpg" alt="Screenshot 2">
+      </div>
+
+      <div class="shot" onclick="openPopup('https://i.supaimg.com/028c44a9-203b-4f08-b462-0f4f3ed50cba.jpg')">
+        <img src="https://i.supaimg.com/028c44a9-203b-4f08-b462-0f4f3ed50cba.jpg" alt="Screenshot 3">
+      </div>
+
+      <div class="shot" onclick="openPopup('https://i.supaimg.com/b7d6cad4-3e6f-4920-8362-18eab656ae71.jpg')">
+        <img src="https://i.supaimg.com/b7d6cad4-3e6f-4920-8362-18eab656ae71.jpg" alt="Screenshot 4">
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="section-title">depression</div>
+    <div class="about-box">
+      <div class="about-text">
+HopWeb is a fast, smooth and lightweight web browser designed for a better and safer browsing experience.
+This app helps users to explore the internet with speed, simplicity, and modern design.
+HopWeb is made for people who want a clean UI, easy controls, and quick access to websites without any complicated settings.
+
+🌐 Why Choose HopWeb?
+HopWeb provides a user-friendly experience with fast performance and easy browsing.
+It is perfect for students, beginners, and daily internet users.
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="tags">
+      <div class="tag">No. 1 in HopWeb</div>
+      <div class="tag">online</div>
+      <div class="tag">coding</div>
+       <div class="tag">html css</div>
+       <div class="tag">#megaboost</div>
+ <div class="tag">HopWeb pro apk</div>
+    </div>
+
+    <!-- Data Safety -->
+    <div class="data-safety">
+      <h3>Data safety</h3>
+      <p>
+Privacy & Safety
+We respect user privacy. HopWeb does not collect personal information and provides a safe browsing environment.
+      </p>
+    </div>
+
+    <div class="footer">
+      © 2026 HopWeb Pro | Mega Boost Official
+    </div>
+
+  </div>
+
+  <!-- POPUP -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <button class="close-btn" onclick="closePopup()">✖</button>
+      <img id="popupImage" src="" alt="Zoom Screenshot">
+    </div>
+  </div>
+
+  <script>
+    function openPopup(imgUrl){
+      document.getElementById("popupImage").src = imgUrl;
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup(){
+      document.getElementById("popup").style.display = "none";
+    }
+
+    document.getElementById("popup").addEventListener("click", function(e){
+      if(e.target.id === "popup"){
+        closePopup();
+      }
+    });
+  </script>
+
+</body>
+</html>
